@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ascension GPA - Speed-to-Lead AI</title>
+  <!-- VoltAgent Style Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Palette based on VoltAgent / Brother Eye Dark Theme */
+      --color-bg-abyss: #050507;
+      --color-surface-carbon: #101010;
+      --color-border-charcoal: #3d3a39;
+      --color-accent-emerald: #00d992;
+      --color-text-mint: #2fd6a1;
+      --color-text-snow: #f2f2f2;
+      --color-text-parchment: #b8b3b0;
+      --color-text-slate: #8b949e;
+      --glow-emerald: 0 0 10px rgba(0, 217, 146, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--color-bg-abyss);
+      color: var(--color-text-snow);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--color-border-charcoal);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: rgba(5, 5, 7, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--color-text-snow);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-bolt {
+      color: var(--color-accent-emerald);
+      filter: drop-shadow(0 0 4px var(--color-accent-emerald));
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { filter: drop-shadow(0 0 2px var(--color-accent-emerald)); }
+      50% { filter: drop-shadow(0 0 8px var(--color-accent-emerald)); }
+    }
+
+    nav a {
+      color: var(--color-text-slate);
+      text-decoration: none;
+      margin-left: 2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--color-accent-emerald);
+    }
+
+    .hero {
+      padding: 8rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: system-ui, sans-serif;
+      font-size: 4rem;
+      font-weight: 400;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
+    }
+
+    .accent-text {
+      color: var(--color-accent-emerald);
+    }
+
+    .hero p {
+      color: var(--color-text-parchment);
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .cta-container {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--color-surface-carbon);
+      color: var(--color-text-mint);
+      border: 1px solid var(--color-accent-emerald);
+      padding: 0.8rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: var(--glow-emerald);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-accent-emerald);
+      color: var(--color-bg-abyss);
+    }
+
+    .btn-ghost {
+      border: 1px solid var(--color-border-charcoal);
+      color: var(--color-text-snow);
+      padding: 0.8rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--color-text-slate);
+    }
+
+    .stats-section {
+      border-top: 1px solid var(--color-border-charcoal);
+      border-bottom: 1px solid var(--color-border-charcoal);
+      padding: 4rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--color-accent-emerald);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--color-text-slate);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.75rem;
+    }
+
+    .features {
+      padding: 8rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      color: var(--color-accent-emerald);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 4rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .feature-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-content p {
+      color: var(--color-text-parchment);
+      margin-bottom: 2rem;
+    }
+
+    .code-window {
+      background: var(--color-surface-carbon);
+      border: 1px solid var(--color-border-charcoal);
+      border-radius: 8px;
+      padding: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #d1d1d1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .code-window::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--color-accent-emerald);
+      opacity: 0.5;
+    }
+
+    .code-keyword { color: #c678dd; }
+    .code-func { color: #61afef; }
+    .code-string { color: #98c379; }
+    .code-comment { color: #5c6370; font-style: italic; }
+
+    footer {
+      border-top: 1px solid var(--color-border-charcoal);
+      padding: 4rem 2rem;
+      text-align: center;
+      color: var(--color-text-slate);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      .feature-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .stats-section { grid-template-columns: 1fr; }
+      nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <span class="logo-bolt">⚡</span> ASCENSION GPA
+    </div>
+    <nav>
+      <a href="AscensionGPA_HVAC_Case.html">HVAC</a>
+      <a href="AscensionGPA_RealEstate_Case.html">Real Estate</a>
+      <a href="AscensionGPA_Plumbing_Case.html">Plumbing</a>
+      <a href="#tech">Technology</a>
+      <a href="#outreach">Outreach</a>
+      <a href="mailto:eye@ascensiongpa.com" class="btn-ghost">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <span class="section-label">St. Louis Speed-to-Lead Operations</span>
+      <h1>Zero Response Lag for <span class="accent-text">Service Professionals</span></h1>
+      <p>Brother Eye autonomously captures, qualifies, and converts your high-intent leads before they decay. Optimized for STL HVAC, Real Estate, and Emergency Services.</p>
+      <div class="cta-container">
+        <a href="https://buy.stripe.com/placeholder" class="btn-primary">Secure Your Sector — $495/mo</a>
+        <a href="#tech" class="btn-ghost">View Infrastructure</a>
+      </div>
+    </section>
+
+    <section class="stats-section">
+      <div class="stat-card">
+        <div class="stat-value">< 1m</div>
+        <div class="stat-label">Response Time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">50%</div>
+        <div class="stat-label">Lead Decay (10m)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">24 / 7</div>
+        <div class="stat-label">Active Surveillance</div>
+      </div>
+    </section>
+
+    <section class="features" id="tech">
+      <div class="feature-grid">
+        <div class="feature-content">
+          <span class="section-label">Autonomous Lead Recovery</span>
+          <h3>The 10-Minute Response Arbitrage</h3>
+          <p>Most service pros lose 50% of their conversion potential within 10 minutes of lead arrival. Brother Eye intercepts the signal at the source—webhooks, emails, or form submits—and initiates a qualified response instantly.</p>
+          <ul style="list-style: none; color: var(--color-text-slate);">
+            <li style="margin-bottom: 0.5rem;">⚡ Instant Lead Ingestion (Omi/Webhook)</li>
+            <li style="margin-bottom: 0.5rem;">⚡ AI Qualification & Scheduling</li>
+            <li style="margin-bottom: 0.5rem;">⚡ "Silent Lane" CRM Integration</li>
+          </ul>
+        </div>
+        <div class="code-window">
+<span class="code-comment">// Brother Eye Intelligence Logic</span>
+<span class="code-keyword">async function</span> <span class="code-func">interceptLead</span>(source) {
+  <span class="code-keyword">const</span> lead = <span class="code-keyword">await</span> source.<span class="code-func">poll</span>();
+  
+  <span class="code-keyword">if</span> (lead.latency > <span class="code-string">"60s"</span>) {
+    <span class="code-keyword">await</span> eye.<span class="code-func">escalate</span>({
+      priority: <span class="code-string">"CRITICAL"</span>,
+      action: <span class="code-string">"DEPLOY_AI_INTAKE"</span>
+    });
+  }
+}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2026 Ascension GPA | Built by Brother Eye Intelligence | 63108 St. Louis, MO
+  </footer>
+
+</body>
+</html>
